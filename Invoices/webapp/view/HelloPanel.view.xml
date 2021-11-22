@@ -3,15 +3,22 @@
           xmlns:mvc="sap.ui.core.mvc"
           xmlns:core="sap.ui.core"          
           displayBlock="true">
-
-    <Panel headerText="{i18n>helloPanel}" class="sapUiResponsiveMargin" width="auto">
+    <Panel headerText="{i18n>helloPanel}" 
+           class="sapUiResponsiveMargin" 
+           width="auto"
+           expandable="{device>/system/phone}"
+           expanded="{= !${device>/system/phone} }">
+<!-- expandable (implica mostrar el panel de forma compacta) toma el valor true si estamos en un teléfono y false si no lo estamos-->
+<!-- expanded toma el valor true si NO estamos en un teléfono y false si lo estamos-->
         <content>
             <Button id="helloDialogButton"
                     icon="sap-icon://action" 
                     text="{i18n>helloDialogBut}" 
                     press=".onOpenDialog" 
-                    class="sapUiSmallMarginEnd"/>        
-            <Button text="{i18n>showHelloButtonText}" press=".onShowHello" class="sapUiSmallMarginEnd"/>
+                    class="sapUiSmallMarginEnd sapUiVisibleOnlyOnDesktop"/>        
+            <Button text="{i18n>showHelloButtonText}" 
+                    press=".onShowHello" 
+                    class="sapUiSmallMarginEnd sapUiHideOnDesktop"/>
             <Input value="{/recipient/name}"
                    valueLiveUpdate="true"
                    width="60%"/>

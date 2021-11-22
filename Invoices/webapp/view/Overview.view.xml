@@ -1,0 +1,26 @@
+<mvc:View controllerName="Antonio.Invoices.controller.App"
+          xmlns="sap.m" 
+          xmlns:mvc="sap.ui.core.mvc"
+          displayBlock="true">
+    <Page title="{i18n>appTitle}">
+        <landmarkInfo>
+            <PageAccessibleLandmarkInfo rootRole="Region"
+                                        rootLabel="{i18n>overviewRootLabel}"
+                                        contentRole="Main"
+                                        contentLabel="{i18n>overviewContentLabel}"
+                                        headerRole="Banner"
+                                        headerLabel="{i18n>overviewHeaderLabel}"/>
+        </landmarkInfo>
+        <headerContent>
+            <Button id="helloDialogHeader"
+                    icon="sap-icon://action" 
+                    text="{i18n>helloDialogBut}" 
+                    press=".onOpenDialogHeader" 
+                    class="sapUiSmallMarginEnd"/>  
+        </headerContent>
+        <content>
+            <mvc:XMLView viewName="Antonio.Invoices.view.HelloPanel"/>
+            <mvc:XMLView viewName="Antonio.Invoices.view.InvoicesList"/>                        
+        </content>
+    </Page>
+</mvc:View>
