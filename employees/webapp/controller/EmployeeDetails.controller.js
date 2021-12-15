@@ -1,11 +1,55 @@
 sap.ui.define([
-    "sap/ui/core/mvc/Controller"
-], function (controller) {
+    "sap/ui/core/mvc/Controller",
+    "Antonio/employees/model/formatter"
+], function (Controller, formatter) {
 
-    return controller.extend("Antonio.employees.controller.EmployeeDetails", {
+    function onInit() {
 
-        onInit: function () {
+    };
 
-        },
-    });
+    function onCreateIncidence() {
+
+        var tableIncidence = this.getView().byId("tableIncidence");
+        var newIncidence = sap.ui.xmlfragment("Antonio.employees.fragment.NewIncidence", this);
+        var incidenceModel = this.getView().getModel("incidenceModel");
+        var odata = incidenceModel.getData();
+        var index = odata.length;
+        odata.push({ index: index + 1 });
+        incidenceModel.refresh();
+        newIncidence.bindElement("incidenceModel>/" + index);
+        tableIncidence.addContent(newIncidence);
+
+    };
+
+    function onDeleteIncidence(oEvent) {
+
+        var tableIncidence = this.getView().byId("tableIncidence");
+        var rowIncidence = oEvent.getSource().getParent().getParent();
+        var incidenceModel = this.getView().getModel("incidenceModel");
+        var odata = incidenceModel.getData();
+        var contextObj = rowIncidence.getBindingContext("incidenceModel").getObject();
+
+        odata.splice(contextObj.index - 1, 1);
+        for (var i in odata) {
+            odata[i].index = parseInt(i) + 1;
+        };
+
+        incidenceModel.refresh();
+        tableIncidence.removeContent(rowIncidence);
+
+        for (var j in tableIncidence.getContent()) {
+            tableIncidence.getContent()[j].bindElement("incidenceModel>/" + j);
+        }
+
+    };
+
+    var EmployeeDetails = Controller.extend("Antonio.employees.controller.EmployeeDetails", {});
+
+    EmployeeDetails.prototype.onInit = onInit;
+    EmployeeDetails.prototype.onCreateIncidence = onCreateIncidence;
+    EmployeeDetails.prototype.onDeleteIncidence = onDeleteIncidence;
+    EmployeeDetails.prototype.Formatter = formatter;
+
+    return EmployeeDetails;
+
 });
