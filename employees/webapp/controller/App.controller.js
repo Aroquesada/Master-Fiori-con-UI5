@@ -1,8 +1,8 @@
 sap.ui.define([
     "sap/ui/core/mvc/Controller"
-], function (controller) {
+], function (Controller) {
 
-    return controller.extend("Antonio.employees.controller.App", {
+    return Controller.extend("Antonio.employees.controller.App", {
 
         onInit: function () {
 
